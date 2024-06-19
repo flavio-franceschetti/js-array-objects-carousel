@@ -27,35 +27,24 @@ const objectContent = [
   },
 ];
 
-//CREO L'ARRAY PER LE IMMAGINI
-const carlouselImg = objectContent.map((element) => {
-  return element.image;
-});
-
-// creo un array per i titoli
-const carouselTitle = objectContent.map((element) => {
-  return element.title;
-});
-
-// creo un array per tutti i text
-const carouselText = objectContent.map((element) => {
-  return element.text;
-});
-
-console.log(carouselText);
-
+// ***************************************
 //prendo il container dove inserire i div con le immagini
 const itemsContainer = document.querySelector(".items-container");
 
-//con un forEach sull'array con le immaggini le inserisco nell html
-carlouselImg.forEach((element) => {
+// con un forEach sull'array con le immaggini le inserisco nell html
+objectContent.forEach((element) => {
   //creo la variabile con l'elemento html usando l variabile creata con gli elementi dell'array
   let itemContentImg = `<div class="item">
-                        <img src="${element}" alt="img1" />
-                    </div>`;
+          <div class="item-text-content">
+            <h3>${element.title}</h3>
+            <p>${element.text}</p>
+          </div>
+          <img src="${element.image}" alt="img1" />
+        </div>`;
   //inserisco l'html nel contenitore
   itemsContainer.innerHTML += itemContentImg;
 });
+// ***************************************
 
 //per dare la classe active ora ai singoli elementi li racchiudo prima in una variabile
 const allItems = document.getElementsByClassName("item");
@@ -71,7 +60,7 @@ const next = document.querySelector(".next-btn");
 next.addEventListener("click", function () {
   //creiamo la condizione per verificare se siamo arrivati alla fine dell'array
   //ci sarà l' array.lengt - 1 perché lenght prende gli conta il totale ma gli elementi partono da 0
-  if (activeItem < carlouselImg.length - 1) {
+  if (activeItem < objectContent.length - 1) {
     //diciamo prima di rimuovere la classe active dall elemento corrente
     allItems[activeItem].classList.remove("active");
     //passiamo all'elemento successivo aggiungendo 1 alla variabile activeItem in modo da passare all'elemento successivo

@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+/* GENERAL */
+/* *********************************** */
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -15,26 +17,52 @@ img {
   object-position: 100% 25%;
 }
 
+.item.active {
+  display: block;
+}
+/* *********************************** */
+
+/* container general */
+/* *********************************** */
 .container {
-  width: 80%;
+  width: 98%;
   margin: 0 auto;
   height: 100vh;
   align-content: center;
 }
+/* *********************************** */
+
+/* *********************************** */
+
+/* ITEMS CONTAINER */
+/* *********************************** */
+.items-container {
+  position: relative;
+}
 
 .item {
+  position: relative;
   height: 300px;
   display: none;
 }
 
-.active {
-  display: block;
+.item-text-content {
+  width: 80%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  text-align: right;
+  color: #fff;
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
 }
 
-.slider {
-  position: relative;
+.item-text-content h3 {
+  margin-bottom: 5px;
 }
+
 /* NEXT AND PREV BUTTONS */
+/* *********************************** */
 .next-btn,
 .prev-btn {
   position: absolute;
@@ -45,6 +73,7 @@ img {
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  z-index: 1;
 }
 
 .next-btn {
@@ -56,3 +85,4 @@ img {
   top: 8px;
   left: 50%;
 }
+/* *********************************** */
