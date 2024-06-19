@@ -1,0 +1,58 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 100% 25%;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  height: 100vh;
+  align-content: center;
+}
+
+.item {
+  height: 300px;
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.slider {
+  position: relative;
+}
+/* NEXT AND PREV BUTTONS */
+.next-btn,
+.prev-btn {
+  position: absolute;
+  background-color: lightgray;
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.next-btn {
+  bottom: 8px;
+  left: 50%;
+}
+
+.prev-btn {
+  top: 8px;
+  left: 50%;
+}
