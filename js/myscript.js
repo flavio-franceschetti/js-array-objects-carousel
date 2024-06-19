@@ -2,7 +2,7 @@
 const objectContent = [
   {
     image: "img/01.webp",
-    title: "Marvel's Spiderman Miles Morale",
+    title: "Marvel's Spiderman Miles Morales",
     text: "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.",
   },
   {
@@ -28,11 +28,21 @@ const objectContent = [
 ];
 
 //CREO L'ARRAY PER LE IMMAGINI
-const carlouselImg = [];
-// estrapolo le immagini dagli ogetti con forEach e le pusho nel nuovo array
-objectContent.forEach((element) => {
-  carlouselImg.push(element.image);
+const carlouselImg = objectContent.map((element) => {
+  return element.image;
 });
+
+// creo un array per i titoli
+const carouselTitle = objectContent.map((element) => {
+  return element.title;
+});
+
+// creo un array per tutti i text
+const carouselText = objectContent.map((element) => {
+  return element.text;
+});
+
+console.log(carouselText);
 
 //prendo il container dove inserire i div con le immagini
 const itemsContainer = document.querySelector(".items-container");
@@ -40,11 +50,11 @@ const itemsContainer = document.querySelector(".items-container");
 //con un forEach sull'array con le immaggini le inserisco nell html
 carlouselImg.forEach((element) => {
   //creo la variabile con l'elemento html usando l variabile creata con gli elementi dell'array
-  let itemContent = `<div class="item">
+  let itemContentImg = `<div class="item">
                         <img src="${element}" alt="img1" />
                     </div>`;
   //inserisco l'html nel contenitore
-  itemsContainer.innerHTML += itemContent;
+  itemsContainer.innerHTML += itemContentImg;
 });
 
 //per dare la classe active ora ai singoli elementi li racchiudo prima in una variabile
