@@ -49,10 +49,15 @@ objectContent.forEach((element) => {
 //per dare la classe active ora ai singoli elementi li racchiudo prima in una variabile che genera un array grazie a getelementsbyclass
 const allItems = document.getElementsByClassName("item");
 
+// seleziono tutte le thumbnails dall html
+const allThumb = document.querySelectorAll(".thumb-img");
+
 // definisco un variabile per dare il unumero dell'indice alla quale viene aggiunta la classe active
 let activeItem = 0;
 //aggiungo la classe active al primo elemento perche la variabile è 0 quindi la classe andrà all'elemento con indice 0
 allItems[activeItem].classList.add("active");
+// aggiungo la classe selected thumb
+allThumb[activeItem].classList.add("selected-thumb");
 
 //recupero i bottoni per lo slide
 const next = document.querySelector(".next-btn");
@@ -63,13 +68,17 @@ next.addEventListener("click", function () {
   //ci sarà l' array.lengt - 1 perché lenght conta il totale ma gli elementi partono da 0
   if (activeItem < objectContent.length - 1) {
     allItems[activeItem].classList.remove("active"); //diciamo prima di rimuovere la classe active dall elemento corrente
+    allThumb[activeItem].classList.remove("selected-thumb");
     activeItem++; //passiamo all'elemento successivo aggiungendo 1 alla variabile activeItem in modo da passare all'elemento successivo
     allItems[activeItem].classList.add("active"); //e poi naggiungiamo la classe item di nuovo e andrà sull'elemento successivo
+    allThumb[activeItem].classList.add("selected-thumb");
   } else if (activeItem === objectContent.length - 1) {
     // creiamo il ciclo infinito in modo da non bloccare mai il carosello
     allItems[activeItem].classList.remove("active"); // ritogliamo la classe
+    allThumb[activeItem].classList.remove("selected-thumb");
     activeItem = 0; // active item ritorna 0
     allItems[activeItem].classList.add("active"); // e ricomincia ad aggiungere le classi
+    allThumb[activeItem].classList.add("selected-thumb");
   }
 });
 
@@ -78,16 +87,20 @@ const prev = document.querySelector(".prev-btn");
 //creo un evento al click della freccia prev per tornare indietro con le immagini
 prev.addEventListener("click", function () {
   if (activeItem > 0) {
-    //diciamo prima di rimuovere la classe active dall elemento corrente
-    allItems[activeItem].classList.remove("active");
-    //passiamo all'elemento precedente togliendo 1 alla variabile activeItem in modo da passare all'elemento precedente
-    activeItem--;
+    allItems[activeItem].classList.remove("active"); //diciamo prima di rimuovere la classe active dall elemento corrente
+    allThumb[activeItem].classList.remove("selected-thumb");
+    activeItem--; //passiamo all'elemento precedente togliendo 1 alla variabile activeItem in modo da passare all'elemento precedente
     //e poi naggiungiamo la classe item di nuovo e andrà sull'elemento precedente
     allItems[activeItem].classList.add("active");
+    allThumb[activeItem].classList.add("selected-thumb");
   } else if (activeItem === 0) {
     // se active item è uguale a 0
     allItems[activeItem].classList.remove("active"); // rimuovo la classe
+    allThumb[activeItem].classList.remove("selected-thumb");
     activeItem = objectContent.length - 1; // activeitem diventa quanto la lunghezza dell array meno 1 quindi 4 in questo caso
     allItems[activeItem].classList.add("active"); // riaggiungo la classe
+    allThumb[activeItem].classList.add("selected-thumb");
   }
 });
+
+// creo l'evento dove se clicco la thumbnail viene visualizzata la corrispettiva immagine
