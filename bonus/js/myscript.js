@@ -46,6 +46,14 @@ objectContent.forEach((element) => {
 });
 // ***************************************
 
+// creo le thumbnails in modo dinamico
+const thumbContainer = document.querySelector(".thumbnails");
+
+objectContent.forEach((element) => {
+  thumbImg = `<div class="thumb-img"><img src="${element.image}" alt="" /></div>`;
+  thumbContainer.innerHTML += thumbImg;
+});
+
 //per dare la classe active ora ai singoli elementi li racchiudo prima in una variabile che genera un array grazie a getelementsbyclass
 const allItems = document.getElementsByClassName("item");
 
@@ -103,4 +111,13 @@ prev.addEventListener("click", function () {
   }
 });
 
-// creo l'evento dove se clicco la thumbnail viene visualizzata la corrispettiva immagine
+// Aggiungo l'evento click alle thumbnails
+allThumb.forEach((thumb, index) => {
+  thumb.addEventListener("click", function () {
+    allItems[activeItem].classList.remove("active"); // Rimuovo la classe active dall'elemento corrente
+    allThumb[activeItem].classList.remove("selected-thumb");
+    activeItem = index; // Aggiorno l'indice attivo con quello della thumbnail cliccata
+    allItems[activeItem].classList.add("active"); // Aggiungo la classe active al nuovo elemento
+    allThumb[activeItem].classList.add("selected-thumb"); // Aggiungo la classe selected-thumb alla nuova thumbnail
+  });
+});
