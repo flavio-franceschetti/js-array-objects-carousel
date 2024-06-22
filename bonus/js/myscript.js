@@ -50,12 +50,12 @@ objectContent.forEach((element) => {
 const thumbContainer = document.querySelector(".thumbnails");
 
 objectContent.forEach((element) => {
-  thumbImg = `<div class="thumb-img"><img src="${element.image}" alt="" /></div>`;
+  let thumbImg = `<div class="thumb-img"><img src="${element.image}" alt="" /></div>`;
   thumbContainer.innerHTML += thumbImg;
 });
 
 //per dare la classe active ora ai singoli elementi li racchiudo prima in una variabile che genera un array grazie a getelementsbyclass
-const allItems = document.getElementsByClassName("item");
+const allItems = document.querySelectorAll(".item");
 
 // seleziono tutte le thumbnails dall html
 const allThumb = document.querySelectorAll(".thumb-img");
@@ -69,11 +69,10 @@ allThumb[activeItem].classList.add("selected-thumb");
 
 //recupero i bottoni per lo slide
 const next = document.querySelector(".next-btn");
+const prev = document.querySelector(".prev-btn");
 
-//aggiungiamo l'evento al click della freccia next per scorrere le immagini
-next.addEventListener("click", function () {
-  //creiamo la condizione per verificare se siamo arrivati alla fine dell'array
-  //ci sarà l' array.lengt - 1 perché lenght conta il totale ma gli elementi partono da 0
+// creo le funzioni per andare avanti e indietro nel carosello
+function nextInterval() {
   if (activeItem < objectContent.length - 1) {
     allItems[activeItem].classList.remove("active"); //diciamo prima di rimuovere la classe active dall elemento corrente
     allThumb[activeItem].classList.remove("selected-thumb");
@@ -88,12 +87,9 @@ next.addEventListener("click", function () {
     allItems[activeItem].classList.add("active"); // e ricomincia ad aggiungere le classi
     allThumb[activeItem].classList.add("selected-thumb");
   }
-});
+}
 
-const prev = document.querySelector(".prev-btn");
-
-//creo un evento al click della freccia prev per tornare indietro con le immagini
-prev.addEventListener("click", function () {
+function prevInterval() {
   if (activeItem > 0) {
     allItems[activeItem].classList.remove("active"); //diciamo prima di rimuovere la classe active dall elemento corrente
     allThumb[activeItem].classList.remove("selected-thumb");
@@ -109,6 +105,16 @@ prev.addEventListener("click", function () {
     allItems[activeItem].classList.add("active"); // riaggiungo la classe
     allThumb[activeItem].classList.add("selected-thumb");
   }
+}
+
+//aggiungiamo l'evento al click della freccia next per scorrere le immagini avanti
+next.addEventListener("click", function () {
+  nextInterval();
+});
+
+//creo un evento al click della freccia prev per tornare indietro con le immagini indietro
+prev.addEventListener("click", function () {
+  prevInterval();
 });
 
 // Aggiungo l'evento click alle thumbnails
@@ -121,3 +127,52 @@ allThumb.forEach((thumb, index) => {
     allThumb[activeItem].classList.add("selected-thumb"); // Aggiungo la classe selected-thumb alla nuova thumbnail
   });
 });
+
+// ***************************************
+// recupero i bottoni per gestire gli intervalli
+const startBtn = document.querySelector(".start-button");
+const stopBtn = document.querySelector(".stop-button");
+const reverseBtn = document.querySelector(".reverse-button");
+
+// variabili per funziontalità autoplay
+let autoplay;
+let going = false;
+let reverse = false;
+
+// al click di start parte il ciclo corrente  se premo stop di ferma se premo reverse si cambia il ciclo e passa all'altro
+
+// funzione per iniziare l'intervallo in avanti o indietro
+function startInterval() {
+  clearInterval(autoplay); // pulisce qualsiasi intervallo attivo
+  if (reverse === true) {
+    autoplay = setInterval(prevInterval, 2000);
+  } else {
+    autoplay = setInterval(nextInterval, 2000);
+  }
+}
+
+// gestione del click su start
+startBtn.addEventListener("click", function () {
+  if (going === false) {
+    startInterval();
+    going = true;
+  }
+});
+
+// gestione del click su stop
+stopBtn.addEventListener("click", function () {
+  if (going === true) {
+    clearInterval(autoplay);
+    going = false;
+  }
+});
+
+// gestione del click su reverse
+reverseBtn.addEventListener("click", function () {
+  if (going === true || going === false) {
+    // Cambia la direzione e riavvia l'intervallo
+    reverse = !reverse;
+    startInterval();
+  }
+});
+// ***************************************
